@@ -6,45 +6,26 @@ import { HookReturn } from 'sequelize/types/hooks';
 
 export default function (app: Application): typeof Model {
   const sequelizeClient: Sequelize = app.get('sequelizeClient');
-  const usuarios = sequelizeClient.define('usuarios', {
+  const projetos = sequelizeClient.define('projetos', {
     id:{
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    senha: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     nome: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(128),
       allowNull: false
     },
-    RM: {
-      type: DataTypes.BIGINT,
+    descricao: {
+      type: DataTypes.STRING(255),
       allowNull: false
     },
-    CPF: {
-      type: DataTypes.STRING(11),
-      allowNull: false
-    },
-    isAluno: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    isAdministrador: {
+    aceito:{
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
     }
-  
   }, {
     hooks: {
       beforeCount(options: any): HookReturn {
@@ -54,18 +35,17 @@ export default function (app: Application): typeof Model {
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  (usuarios as any).associate = function (models: any): void {
-    usuarios.belongsToMany(models.areas, {
-      through: "Area_professor",
+  (projetos as any).associate = function (models: any): void {
+    projetos.belongsTo(models.areas,{
+      foreignKey: "Area_id"
+    })
+    projetos.belongsTo(models.usuarios, {
       foreignKey: "Professor_id"
-    });
-    usuarios.hasMany(models.projetos,{
-      foreignKey: "Professor_id"
-    });
-    usuarios.belongsTo(models.projetos,{
+    })
+    projetos.hasMany(models.usuarios,{
       foreignKey: "Projeto_id"
-    });
+    })
   };
 
-  return usuarios;
+  return projetos;
 }
