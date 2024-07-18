@@ -43,6 +43,36 @@ export default function (app: Application): typeof Model {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    isVerified: { 
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: null
+    },
+    verifyToken: { 
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: null
+    },
+    verifyExpires: { 
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: null
+    },
+    verifyChanges: { 
+      type: DataTypes.BLOB,
+      allowNull: false,
+      defaultValue: null
+    },
+    resetToken: { 
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: null 
+    },
+    resetExpires: { 
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: null
     }
   
   }, {
