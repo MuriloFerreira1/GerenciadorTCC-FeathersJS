@@ -9,69 +9,69 @@ export default function (app: Application): typeof Model {
   const usuarios = sequelizeClient.define('usuarios', {
     id:{
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: true,
       primaryKey: true,
       autoIncrement: true
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true
     },
     senha: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     nome: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     RM: {
       type: DataTypes.BIGINT,
-      allowNull: false
+      allowNull: true
     },
     CPF: {
       type: DataTypes.STRING(11),
-      allowNull: false
+      allowNull: true
     },
     isAluno: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
     },
     isAdministrador: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: false
     },
     isVerified: { 
       type: DataTypes.BOOLEAN,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null
     },
     verifyToken: { 
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null
     },
     verifyExpires: { 
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null
     },
     verifyChanges: { 
       type: DataTypes.BLOB,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null
     },
     resetToken: { 
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null 
     },
     resetExpires: { 
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: null
     }
   

@@ -3,7 +3,6 @@ import { ServiceAddons } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
 import { Mensagens } from './mensagens.class';
 import hooks from './mensagens.hooks';
-import { defaultMailer } from './mensagens.mail';
 
 
 // Add this service to the service type index
@@ -16,7 +15,6 @@ declare module '../../declarations' {
 export default function (app: Application): void {
   const options = {
     paginate: app.get('paginate'),
-    defaultMailer
   };
 
   // Initialize our service with any options it requires

@@ -1,5 +1,7 @@
 import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
+import * as nodemailer from 'nodemailer'
+import Mailer from 'feathers-mailer'
 
 interface Data {}
 
@@ -21,17 +23,27 @@ export class Mensagens implements ServiceMethods<Data> {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async get (id: Id, params?: Params): Promise<Data> {
-    return {
-      id, text: `A new message with ID: ${id}!`
-    };
+    return [];
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async create (data: Data, params?: Params): Promise<Data> {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
+    const account = await nodemailer.createTestAccount(); // internet required
 
+    const transporter = nodemailer.createTransport({
+      host: account.smtp.host,
+      port: account.smtp.port,
+      secure: account.smtp.secure, // 487 only
+      requireTLS: true,
+      auth: {
+        user: account.user, // generated ethereal user
+        pass: account.pass // generated ethereal password
+      }
+    });
+    
+    const info = await transporter.sendMail(data)
+    console.log(info.messageId)
+    console.log(account.user,"|",account.pass)
     return data;
   }
 
