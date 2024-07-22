@@ -5,7 +5,7 @@ interface Data {}
 
 interface ServiceOptions {}
 
-export class MensgaensManager implements ServiceMethods<Data> {
+export class mensagensManager implements ServiceMethods<Data> {
   app: Application;
   options: ServiceOptions;
 

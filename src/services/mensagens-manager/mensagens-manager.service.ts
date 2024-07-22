@@ -1,13 +1,13 @@
-// Initializes the `mensgaensManager` service on path `/mensgaens-manager`
+// Initializes the `mensagensManager` service on path `/mensagens-manager`
 import { ServiceAddons } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
-import { MensgaensManager } from './mensagens-manager.class';
+import { mensagensManager } from './mensagens-manager.class';
 import hooks from './mensagens-manager.hooks';
 
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {
-    'mensgaens-manager': MensgaensManager & ServiceAddons<any>;
+    'mensagens-manager': mensagensManager & ServiceAddons<any>;
   }
 }
 
@@ -17,10 +17,10 @@ export default function (app: Application): void {
   };
 
   // Initialize our service with any options it requires
-  app.use('/mensgaens-manager', new MensgaensManager(options, app));
+  app.use('/mensagens-manager', new mensagensManager(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('mensgaens-manager');
+  const service = app.service('mensagens-manager');
 
   service.hooks(hooks);
 }
