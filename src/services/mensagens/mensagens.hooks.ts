@@ -1,9 +1,10 @@
 import { HooksObject } from '@feathersjs/feathers';
-import * as a from 'feathers-hooks-common';
+import * as hooks from 'feathers-hooks-common';
+
 
 export default {
   before: {
-    all: [a.disallow('external')],
+    all: [hooks.disallow('external')],
     find: [],
     get: [],
     create: [],

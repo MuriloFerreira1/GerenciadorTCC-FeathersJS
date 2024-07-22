@@ -13,8 +13,29 @@ export default {
     all: [],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
-    create: [ hashPassword('senha') ],
-    update: [ hashPassword('senha'),  authenticate('jwt') ],
+    create: [ 
+      enviaEmailVerificacao(),
+      hashPassword('senha'),
+      verify.removeVerification(),
+    ],
+    update: [ 
+      hashPassword('senha'),  
+      authenticate('jwt'),
+      hooks.iff(
+        hooks.isProvider('external'),
+        hooks.preventChanges(
+          false,
+          'email',
+          'isVerified',
+          'verifyToken',
+          'verifyShortToken',
+          'verifyExpires',
+          'verifyChanges',
+          'resetToken',
+          'resetExpires'
+        )
+      ) 
+    ],
     patch: [ hashPassword('senha'),  authenticate('jwt') ],
     remove: [ authenticate('jwt') ]
   },
