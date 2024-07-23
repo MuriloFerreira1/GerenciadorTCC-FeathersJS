@@ -5,7 +5,7 @@ import { HookContext } from '../../app';
 
 type HookFunction = (hook: HookContext) => boolean;
 
-const avaliaAcao = (...args : string[]):HookFunction=>(context: HookContext) : boolean => args.includes(context.data['action'])
+const avaliaAcao = (...args : string[]):HookFunction=>(context: HookContext) : boolean => args.includes(context.data['acao'])
 
 const { authenticate } = feathersAuthentication.hooks;
 
@@ -17,7 +17,7 @@ export default {
     create: [
       common.iff((context) => avaliaAcao('alterarSenha')(<HookContext>context)
         /*(context)=> {
-          if(context.data['action'] == 'passwordChange' || context.data['action'] == 'identityChange') {
+          if(context.data['acao'] == 'alterarSenha' || context.data['acao'] == 'identityChange') {
             return true;
           }else{ return false}
         }*/,

@@ -10,7 +10,18 @@ const { hashPassword, protect } = local.hooks;
 
 export default {
   before: {
-    all: [],
+    all: [
+      hooks.iff(hooks.isProvider('external'),
+        hooks.discard('isVerified',
+        'verifyToken',
+        'verifyShortToken',
+        'verifyExpires',
+        'verifyChanges',
+        'resetToken',
+        'resetExpires'
+        )
+      )
+    ],
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
     create: [ 
@@ -24,14 +35,7 @@ export default {
         hooks.isProvider('external'),
         hooks.preventChanges(
           false,
-          'email',
-          'isVerified',
-          'verifyToken',
-          'verifyShortToken',
-          'verifyExpires',
-          'verifyChanges',
-          'resetToken',
-          'resetExpires'
+          'email'
         )
       ) 
     ],

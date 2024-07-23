@@ -1,4 +1,4 @@
-import { Params, ServiceAddons } from "@feathersjs/feathers";
+import { Paginated, Params, ServiceAddons } from "@feathersjs/feathers";
 import app from "../../app";
 import { Application } from "../../declarations";
 import { Mensagens } from "../mensagens/mensagens.class";
@@ -9,11 +9,13 @@ interface Data {
     token: string;
 }
 
-export const mensagensManagerController = (data: Data, app : Application) =>{
+export const mensagensManagerController = async (data: Data, app : Application) =>{
     const mensagens = app.service('mensagens');
     const usuarios = app.service('usuarios');
-
-    //usuarios.find({query:{email:data.email}})
+    const usuario = await usuarios.find({query:{email:data.email}});
+    if((<Paginated<any>>usuario).total){
+        throw new Error("Usuário não encontrado");
+    }
     console.log(data.email)
     switch (data.acao){
         case "recuperarSenha":
@@ -32,7 +34,7 @@ function criaEmailRecuperarSenha(email: string, service: Mensagens & ServiceAddo
         from: '"Gerenciador de TCC" <envioTeste@teste.email>',
         to: email,
         subject: 'Recuperação de senha',
-        html: 'Este é um email de recuperação de senha'
+        html: '<h1>Este é um email de recuperação</h1>\n<button>Este é um botão</button>'
     };
     service.create(data);
 }
