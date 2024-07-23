@@ -7,23 +7,18 @@ interface Data {}
 
 interface ServiceOptions {}
 
+const user = nodemailer.createTestAccount();
+
 export class Mensagens{
   app: Application;
   options: ServiceOptions;
-  transporter : any;
+  transporter = nodemailer.createTransport({
+    host: "smtp.freesmtpservers.com",
+    port: 25,
+  });
   constructor (options: ServiceOptions = {}, app: Application) {
     this.options = options;
     this.app = app;
-    this.setTransporter();
-  }
-
-  async setTransporter() : Promise<void>{
-    const account = await nodemailer.createTestAccount(); // internet required
-  
-    this.transporter = nodemailer.createTransport({
-      host: "smtp.freesmtpservers.com",
-      port: 25,
-    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -33,4 +28,6 @@ export class Mensagens{
     console.log(info.messageId)
     return data;
   }
+
+
 }

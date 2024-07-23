@@ -13,8 +13,8 @@ export const mensagensManagerController = (data: Data, app : Application) =>{
     const mensagens = app.service('mensagens');
     const usuarios = app.service('usuarios');
 
-    usuarios.find({query:{email:data.email}})
-
+    //usuarios.find({query:{email:data.email}})
+    console.log(data.email)
     switch (data.acao){
         case "recuperarSenha":
             criaEmailRecuperarSenha(data.email, mensagens);
