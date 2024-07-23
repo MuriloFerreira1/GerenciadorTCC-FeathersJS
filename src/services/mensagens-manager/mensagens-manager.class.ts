@@ -1,11 +1,16 @@
 import { Id, NullableId, Paginated, Params, ServiceMethods } from '@feathersjs/feathers';
 import { Application } from '../../declarations';
+import { mensagensManagerController } from './mensagens-manager.controller';
 
-interface Data {}
+interface Data {
+  acao: string;
+  email: string;
+  token: string;
+}
 
 interface ServiceOptions {}
 
-export class mensagensManager implements ServiceMethods<Data> {
+export class mensagensManager{
   app: Application;
   options: ServiceOptions;
 
@@ -15,38 +20,8 @@ export class mensagensManager implements ServiceMethods<Data> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async find (params?: Params): Promise<Data[] | Paginated<Data>> {
-    return [];
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async get (id: Id, params?: Params): Promise<Data> {
-    return {
-      id, text: `A new message with ID: ${id}!`
-    };
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async create (data: Data, params?: Params): Promise<Data> {
-    if (Array.isArray(data)) {
-      return Promise.all(data.map(current => this.create(current, params)));
-    }
-
+    mensagensManagerController(data, this.app);
     return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async update (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async patch (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async remove (id: NullableId, params?: Params): Promise<Data> {
-    return { id };
   }
 }

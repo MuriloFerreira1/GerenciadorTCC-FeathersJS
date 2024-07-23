@@ -7,7 +7,7 @@ import app from '../app';
 export default (options = {}): Hook => {
   return async (context: HookContext): Promise<HookContext> => {
     const email = {
-      from: '"Pelo amor de Deus funciona" <envioTeste@teste.email>',
+      from: '"Gerenciador de TCC" <envioTeste@teste.email>',
       to: context.data['email'],
       subject: 'Verificação de Conta',
       html: 'Corpo do email'

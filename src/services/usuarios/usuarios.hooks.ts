@@ -14,9 +14,8 @@ export default {
     find: [ authenticate('jwt') ],
     get: [ authenticate('jwt') ],
     create: [ 
-      enviaEmailVerificacao(),
       hashPassword('senha'),
-      verify.removeVerification(),
+      //verify.removeVerification(),
     ],
     update: [ 
       hashPassword('senha'),  

@@ -7,7 +7,7 @@ interface Data {}
 
 interface ServiceOptions {}
 
-export class Mensagens implements ServiceMethods<Data> {
+export class Mensagens{
   app: Application;
   options: ServiceOptions;
   transporter : any;
@@ -27,35 +27,10 @@ export class Mensagens implements ServiceMethods<Data> {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async find (params?: Params): Promise<Data[] | Paginated<Data>> {
-    return [];
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async get (id: Id, params?: Params): Promise<Data> {
-    return [];
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async create (data: Data, params?: Params): Promise<Data> {
     
     const info = await this.transporter.sendMail(data)
     console.log(info.messageId)
     return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async update (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async patch (id: NullableId, data: Data, params?: Params): Promise<Data> {
-    return data;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async remove (id: NullableId, params?: Params): Promise<Data> {
-    return { id };
   }
 }
