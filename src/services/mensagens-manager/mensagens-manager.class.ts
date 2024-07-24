@@ -6,6 +6,7 @@ interface Data {
   acao: string;
   email: string;
   token: string;
+  info: string;
 }
 
 interface ServiceOptions {}
@@ -20,8 +21,12 @@ export class mensagensManager{
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async create (data: Data, params?: Params): Promise<Data> {
-    mensagensManagerController(data, this.app);
-    return data;
+  async create (data: Data, params?: Params): Promise<any> {
+    try {
+      const resposta = mensagensManagerController(data, this.app);
+      return resposta;
+    } catch(error){
+      throw error;
+    }
   }
 }

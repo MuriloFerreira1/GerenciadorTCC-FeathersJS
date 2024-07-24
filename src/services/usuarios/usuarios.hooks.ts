@@ -10,7 +10,10 @@ const { hashPassword, protect } = local.hooks;
 
 export default {
   before: {
-    all: [
+    all: [],
+    find: [ authenticate('jwt') ],
+    get: [ authenticate('jwt') ],
+    create: [ 
       hooks.iff(hooks.isProvider('external'),
         hooks.discard('isVerified',
         'verifyToken',
@@ -20,15 +23,21 @@ export default {
         'resetToken',
         'resetExpires'
         )
-      )
-    ],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
-    create: [ 
+      ),
       hashPassword('senha'),
       //verify.removeVerification(),
     ],
     update: [ 
+      hooks.iff(hooks.isProvider('external'),
+        hooks.discard('isVerified',
+        'verifyToken',
+        'verifyShortToken',
+        'verifyExpires',
+        'verifyChanges',
+        'resetToken',
+        'resetExpires'
+        )
+      ),
       hashPassword('senha'),  
       authenticate('jwt'),
       hooks.iff(
@@ -39,7 +48,20 @@ export default {
         )
       ) 
     ],
-    patch: [ hashPassword('senha'),  authenticate('jwt') ],
+    patch: [ 
+      hooks.iff(hooks.isProvider('external'),
+        hooks.discard('isVerified',
+        'verifyToken',
+        'verifyShortToken',
+        'verifyExpires',
+        'verifyChanges',
+        'resetToken',
+        'resetExpires'
+        )
+      ),
+      hashPassword('senha'),  
+      authenticate('jwt') 
+    ],
     remove: [ authenticate('jwt') ]
   },
 

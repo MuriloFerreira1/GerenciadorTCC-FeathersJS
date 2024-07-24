@@ -25,7 +25,7 @@
     },
     "local": {
       "usernameField": "email",
-      "passwordField": "password"
+      "passwordField": "senha"
     }
   },
   "mysql": "mysql://root:@localhost:3306/gerenciador_tcc_feathers_js"
