@@ -3,7 +3,7 @@ import usuarios from './usuarios/usuarios.service';
 import projetos from './projetos/projetos.service';
 import areas from './areas/areas.service';
 import mensagens from './mensagens/mensagens.service';
-import mensgaensManager from './mensagens-manager/mensagens-manager.service';
+import mensagensManager from './mensagens-manager/mensagens-manager.service';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 export default function (app: Application): void {
@@ -11,5 +11,5 @@ export default function (app: Application): void {
   app.configure(projetos);
   app.configure(areas);
   app.configure(mensagens);
-  app.configure(mensgaensManager);
+  app.configure(mensagensManager);
 }
