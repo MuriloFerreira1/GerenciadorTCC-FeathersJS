@@ -8,6 +8,7 @@ import feathers from '@feathersjs/feathers';
 import configuration from '@feathersjs/configuration';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
+import swagger from 'feathers-swagger';
 
 
 import { Application } from './declarations';
@@ -51,6 +52,17 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.ts)
 app.configure(channels);
+
+app.configure(swagger({
+  specs: {
+    info: {
+        title: 'Gerenciador de TCC',
+        description: 'API RESTful que oferece os serviços para controle do banco de dados da aplicação de Grenciamento de TCC',
+        version: '1.0.0',
+    },
+  },
+  ui: swagger.swaggerUI({})
+}));
 
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
