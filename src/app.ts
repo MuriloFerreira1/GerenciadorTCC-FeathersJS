@@ -8,7 +8,6 @@ import feathers from '@feathersjs/feathers';
 import configuration from '@feathersjs/configuration';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
-import swagger from 'feathers-swagger';
 
 import { Application } from './declarations';
 import logger from './logger';
@@ -19,6 +18,7 @@ import channels from './channels';
 import { HookContext as FeathersHookContext } from '@feathersjs/feathers';
 import authentication from './authentication';
 import sequelize from './sequelize';
+import swagger from './swagger';
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const app: Application = express(feathers());
@@ -44,17 +44,7 @@ app.configure(socketio());
 
 app.configure(sequelize);
 
-app.configure(swagger({
-  specs: {
-    info: {
-      title: 'A test',
-      description: 'A description',
-      version: '1.0.0',
-    },
-    schemes: ['http', 'https']
-  },
-  ui: swagger.swaggerUI({docsPath : '/docs'}),
-}));
+app.configure(swagger());
 
 // Configure other middleware (see `middleware/index.ts`)
 app.configure(middleware);
