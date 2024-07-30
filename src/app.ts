@@ -8,7 +8,7 @@ import feathers from '@feathersjs/feathers';
 import configuration from '@feathersjs/configuration';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
-
+import swagger from 'feathers-swagger';
 
 import { Application } from './declarations';
 import logger from './logger';
@@ -43,6 +43,18 @@ app.configure(express.rest());
 app.configure(socketio());
 
 app.configure(sequelize);
+
+app.configure(swagger({
+  specs: {
+    info: {
+      title: 'A test',
+      description: 'A description',
+      version: '1.0.0',
+    },
+    schemes: ['http', 'https']
+  },
+  ui: swagger.swaggerUI({docsPath : '/docs'}),
+}));
 
 // Configure other middleware (see `middleware/index.ts`)
 app.configure(middleware);
